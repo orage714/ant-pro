@@ -1,100 +1,144 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Collapse ,Icon,Table,Modal} from 'antd';
+import { ParameterForm } from '@/components';
+import { Collapse, Icon, Table, Modal, Card, Row, Col, Badge } from 'antd';
+import { Description, } from './component'
+
 import Debounce from 'lodash-decorators/debounce';
-import styles from './index.less'
+import * as dataList from './json'
 
 const Panel = Collapse.Panel;
+const BOOLEAN={
+    "true":"是",
+    "false":"否"
+}
 
 export default class Demo extends PureComponent {
-    state={
-        visible:false
-    }
-    callback = (key) => {
-        console.log(key);
+
+    renderContent = (data) => {
+        return data.map(item => <Panel header={item.value.keyDesc} key={item.value.keyDesc}>
+            {this.renderShowType(item)}
+        </Panel>)
     }
 
-    toggle(img){
-        this.setState({
-            visible:!this.state.visible,
-            img,
+    renderShowType = ({ value, children, id }) => {
+        switch (value.showType) {
+            case 'noEditable': {
+                const { liType, icon } = value;
+                if (liType) {
+                    return <Fragment>
+                        <div>{(liType && liType === "dot") && <Badge color="#108ee9" />}{value.keyDesc}</div>
+                        <Card>
+                            {
+                                children.map(item => this.renderShowType(item))
+                            }
+                        </Card>
+                    </Fragment>
+                } else {
+                    return <Card>
+                        {
+                            children.map(item => this.renderShowType(item))
+                        }
+                    </Card>
+                }
+            }
+            case 'basic':
+                return <Description term={value.keyDesc}>{value.content}</Description>
+            case 'list':
+                return <Description term={value.keyDesc} col={1} layout='vertical'>
+                    <Card>
+                        {children.map(item => <Description term={item.value.keyDesc} col={4}>{item.value.content}</Description>)}
+                    </Card>
+                </Description>
+            case 'table': return this.renderTable(value);
+            case 'collapse': return this.renderCollapse(value);
+            default:
+                return <div>{`沒有此showType--->${value.showType}类型`}</div>
+
+        }
+    }
+
+    // table组件渲染
+    renderTable = (value) => {
+        const { liType, extDatas: { schema }, extParam, content } = value;
+
+        let columns = [];
+        schema.map(({ desc, name, valueType }) => {
+            columns.push({
+                title: desc,
+                dataIndex: name,
+                // render:(text)=>{
+                //     // this.renderValueType(valueType,desc,text,extParam)------------
+                // }
+            })
         })
+        const term = <Fragment>{(liType && liType === "dot") && <Badge color="#108ee9" />}{value.keyDesc}</Fragment>
+        return <Row>
+            <Description term={term} col={1} layout='vertical'>
+                <Table
+                    columns={columns}
+                    dataSource={content}
+                    pagination={false}
+                    size='small'
+                />
+            </Description>
+        </Row>
     }
-  
-    renderModalImg=()=>{
-        const { visible,img}=this.state;
-        return(
-            <Modal 
-            visible={visible} 
-            onCancel={()=>this.setState({visible:false})}
-            footer={null}
-            className={styles.imgModal}
-            >
-                 <img src={img} style={{'width':'100%','height':'100%'}}/>
-            </Modal>
-        )
-    }
-    render() {
-        const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-const genExtra = () => (
-    <Icon
-      type="setting"
-      onClick={event => {
-        // If you don't want click extra trigger collapse, you can prevent this:
-        event.stopPropagation();
-      }}
-    />
-  );
-  const columns=[
-      {
-          title:'name',
-          key:'name',
-          dataIndex:'name'
-      },
-      {
-        title:'age',
-        dataIndex:'age'
-    },
-    {
-        title:'图片',
-        dataIndex:'img',
-        render:(text)=>(
-            <Fragment >
-            <img src={text} style={{'width':'30px','height':'30px'}} onClick={()=>this.toggle(text)}/>
-            </Fragment>
-        )
-    }
-  ]
 
-  const dataSource=[{id:1, img:'http://pic32.nipic.com/20130823/13339320_183302468194_2.jpg',name:'名字',age:'年龄'},{id:2,img:'http://pic32.nipic.com/20130823/13339320_183302468194_2.jpg',name:'名字',age:'年龄'}]
+    renderCollapse = ({ keyDesc, liType, content, extDatas: { schema } }) => {
+        console.log(keyDesc, liType, content, schema, '-------------')
+
+        return <Fragment>
+            <div>{(liType && liType === "dot") && <Badge color="#108ee9" />}{keyDesc}</div>
+            <Collapse >
+                {content.map(item => <Panel header={item.id} key={item.id} layout='ver'>
+                    <Row>
+                        {
+                            schema.map(path => {
+                                switch (path.showType) {
+                                    case 'basic': 
+                                    return <Description key={`${item.id}.${path.name}`} term={path.desc} col={3}> {item[path.name]} </Description>
+                                    case 'noEditable': 
+                                    return <Fragment key={`${item.id}.${path.name}`} > 
+                                        <div style={{"clear":"both"}}> {path.desc} </div>
+                                        <Card>
+                                            {path.children.map((v,i)=><div>
+                                                <span>{i+1}{v.desc}</span>
+                                                    { v.dataType==="boolean" && BOOLEAN[JSON.stringify(item[path.name][v.name])] }
+                                                    { v.dataType==="jsonArr" && item[path.name][v.name].map(img=><img src={img}/>) }
+                                                </div>
+                                                )}
+                                        </Card>
+                                    </Fragment>
+                                   
+                                    default:
+                                        return <div>{`沒有此showType--->${path.showType}类型`}</div>
+                                }
+                            }
+                            )
+                        }
+                    </Row>
+
+                </Panel>)
+                }
+            </Collapse>
+            {/* </Description> */}
+        </Fragment>
+
+
+    }
+
+    render() {
         return (
             <Fragment>
-            <Collapse
-                onChange={this.callback}
-                expandIconPosition='right'
-                destroyInactivePanel={true}
-                bordered={false}
-            >
-                <Panel header="This is panel header 1" key="1" extra={genExtra()}  expandIconPosition='right'>
-                    <Collapse defaultActiveKey="1">
-                        <Panel header="This is panel nest panel" key="1">
-                            <p>{text}</p>
-                        </Panel>
-                    </Collapse>
-                </Panel>
-                <Panel header="This is panel header 2" key="2">
-                   <Table columns={columns} dataSource={dataSource} rowKey={record=>record.id}/>
-                </Panel>
-                <Panel header="This is panel header 3" key="3">
-                    <p>{text}</p>
-                </Panel>
-               
-            </Collapse>
-             {this.renderModalImg()}
-             </Fragment>
+                <Collapse
+                    onChange={this.callback}
+                    expandIconPosition='right'
+                    destroyInactivePanel={true}
+                    bordered={false}
+                >
+                    {this.renderContent(dataList.default.regularDetail)}
+                </Collapse>
+            </Fragment>
         );
     }
 }

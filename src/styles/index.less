@@ -1,0 +1,451 @@
+@import "~antd/dist/antd.less";
+@import './base/variables.less';
+@import './base/mixins.less';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: @font-size-base;
+  font-family: sans-serif;
+}
+.@{sitePrefixs} {
+  &-event-popover-link {
+    max-width: 780px;
+    text-align: center;
+    color: #ccc;
+    p {
+      margin-bottom: 0;
+    }
+
+  }
+}
+
+
+.text-gray {
+  color: @color-text-caption;
+}
+
+.ant-btn {
+  &-danger {
+    &:hover, &:active, &:focus {
+      background-color: lighten(@error-color, 5%);
+      border-color: lighten(@error-color, 5%);
+    }
+  }
+  &.success {
+    border-color: @success-color ;
+    background-color: @success-color ;
+    color: #fff;
+    &:hover, &:active, &:focus {
+      background-color: lighten(@green-light  , 5%);
+      border-color: lighten(@green-light , 5%);
+    }
+  }
+  &.info {
+    border-color: @success-color ;
+    background-color: @success-color ;
+    color: #fff;
+    &:hover, &:active, &:focus {
+      background-color: lighten(@success-color, 5%);
+      border-color: lighten(@success-color, 5%);
+    }
+  }
+}
+.btn-link {
+  display: inline-block;
+  padding: 0 @padding-xs;
+  border: 0;
+  cursor: pointer;
+  .anticon {
+    margin-right: 4px;
+  }
+}
+
+.btn-extend {
+  display: inline-block;
+  padding: 0 @padding-xs;
+  cursor: pointer;
+  .extend-click;
+}
+
+// Icon 
+.anticon {
+  &.bordered {
+    background: #fff;
+    padding: @padding-xs;
+    border-radius: 50%;
+    color: lighten(@gray, 10%);
+  }
+}
+
+// Modal 样式
+.ant-modal {
+  &-close-x {
+    font-weight: 100;
+    color: @gray-ligth;
+    &:hover {
+      color: @cyanogen;
+    }
+  }
+
+  .@{sitePrefixs}-modal-footer {
+    text-align: right;
+    padding: @padding-md;
+    border-top: 1px solid @border-color-base;
+    margin: @margin-md -@margin-lg -@margin-lg;
+    .ant-btn {
+      margin-left: @margin-sm;
+    }
+  }
+  .ant-form-item {
+    margin-bottom: @margin-sm;
+    &-label {
+      line-height: 22px;
+    }
+  }
+  .ant-table-small {
+    border: 1px solid @border-color-base;
+    border-radius: 2px;
+    box-shadow: @box-shadow;
+  }
+  .ant-table-scroll {
+    width: auto;
+  }
+  &.modal-python-editor {
+    .ant-modal-body {
+      min-height: 520px;
+      padding: 0;
+    }
+    .CodeMirror {
+      height: 70vh;
+    }
+    .ReactCodeMirror {
+      height: 100%;
+    }
+  }
+}
+
+// 翻页
+.ant-pagination {
+  text-align: right;
+}
+
+// Steps 
+.ant {
+  &-steps {
+    .ant-steps-item-finish > .ant-steps-item-tail:after {
+      background-color: @border-color-base;
+    }
+    .ant-steps-item-process .ant-steps-item-icon {
+      background: @success-color;
+      border-color: @success-color;
+    }
+    .ant-steps-item-finish {
+      & > .ant-steps-item-content > .ant-steps-item-title:after {
+        background-color: @success-color;
+      }
+      .ant-steps-item-icon {
+        border-color: @success-color;
+        & > .ant-steps-icon {
+          color: @success-color;
+        }
+      }
+    }
+  }
+}
+
+// 表单样式
+.ant-form-item {
+  margin-bottom: 12px;
+}
+.ant-select-selection--multiple .ant-select-selection__choice {
+  background: #fff;
+}
+.ant-select-selection, .ant-input-number {
+  background-color: @input-bg;
+  border: 1px solid @border-color-base;
+}
+.ant-select-dropdown-menu-item:hover {
+  background: @fill-hover
+}
+.ant-input-disabled, .ant-input[disabled] {
+  background: @input-disabled-bg;
+  color: @gray-ligth;
+}
+
+
+// 表格筛选
+.ant-table {
+  .date {
+    font-size: @font-size-sm;
+  }
+  .date, .desc {
+    color: @color-text-caption;
+  }
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+  .ant-table-tbody > tr > td {
+    padding: @padding-sm;
+  }
+  &-fixed {
+    &-right table, &-left table {
+      background: transparent;
+      border-spacing: 0 !important;
+      .ant-table-thead > tr > th {
+        background: @fill-body;
+      }
+      .ant-table-tbody > tr > td {
+        border-bottom: 1px solid @fill-body;
+      }
+    }
+    &-right table {
+      .ant-table-thead > tr > th {
+        text-align: right;
+      }
+    }
+  }
+}
+.as-table-bordered {
+  .ant-table-tbody > tr > td {
+    border-bottom: 0;
+    
+  }
+  .ant-table-row:nth-child(even) {
+    background: @gray-ligthess;
+  }
+}
+
+.ant-table-thead > tr.ant-table-row-hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td,
+.ant-table-thead > tr:hover > td,
+.ant-table-tbody > tr:hover > td {
+    background: @fill-hover;
+}
+
+.ant-table-placeholder {
+  color: @color-text-caption;
+}
+
+// Popover
+.ant-popover {
+  &-title {
+    color: #fff;
+    border-bottom: 1px solid #222;
+  }
+  &-inner {
+    background: @cyanogen-lighter;
+    &-content, a {
+      color: #fff;
+    }
+  }
+  &-message {
+    color: #fff;
+  }
+  &-arrow {
+    background: @cyanogen-lighter;
+  }
+}
+
+.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {
+  border-right-color: @cyanogen-lighter;
+  border-bottom-color: @cyanogen-lighter;
+}
+
+.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow {
+  border-left-color: @cyanogen-lighter;
+  border-bottom-color: @cyanogen-lighter;
+}
+
+.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {
+  border-top-color: @cyanogen-lighter;
+  border-left-color: @cyanogen-lighter;
+}
+
+.ant-dropdown-menu-item:hover, .ant-dropdown-menu-submenu-title:hover {
+  background: @fill-hover;
+}
+
+// Badge
+.ant-badge {
+  &.text {
+    border-radius: @radius-md;
+    padding: 4px;
+  }
+  &.gray {
+    background: @gray-ligth;
+    color: #fff;
+  }
+}
+
+// Module
+.module {
+  margin-bottom: @margin-md;
+  background: #fff;
+  border-radius: @radius-md;
+  &-head {
+    font-size: @font-size-md;
+    padding: @padding-sm;
+  }
+  &-body {
+    padding: @padding-sm;
+  }
+}
+
+// Params Box 
+.params-box {
+  &.ant-collapse-borderless:last-child > .ant-collapse-item {
+    border: 0;
+  }
+  &.ant-collapse > .ant-collapse-item.ant-collapse-no-arrow > .ant-collapse-header{
+    padding-left: 0;
+  }
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 0;
+  }
+}
+
+.@{sitePrefixs} {
+  // 筛选组 
+  &-filter-group {
+    .label {
+      display: inline-block;
+      margin-right: 4px;
+      color: @color-text-caption;
+    }
+  }
+  // 图标
+  &-icon {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    min-width: 12px !important;
+    &-stop-circle {
+      position:relative;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.65);
+      &:before{
+        content: '';
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        height: 4px;
+        width: 4px;
+        background: rgba(0, 0, 0, 0.65);
+        transform: translate3d(-50%, -50%, 0);
+      }
+    }
+  }
+  // Card
+  &-card.ant-card-bordered {
+    overflow: hidden;
+    .title {
+      .text-ellipsis();
+      font-size: 14px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+      font-weight: 400;
+      a {
+        color: @color-text-base;
+      }
+    }
+    .desc {
+      .text-ellipsis();
+      margin-bottom: @margin-sm;
+      min-height: 18px;
+      color: @color-text-caption;
+    }
+    .date {
+      .text-ellipsis();
+      .anticon {
+        vertical-align: initial;
+        margin-right: 4px;
+      }
+    }
+
+    .icon-type {
+      font-size: 115px;
+      color: #fbfbfb;
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.text-right {
+  .text-right;
+}
+
+pre {
+  background: @gray-ligthess;
+  padding: @padding-xs;
+  border-radius: @radius-md;
+  border-left: 2px solid @gray-ligth;
+}
+
+// 左尺寸
+.m-l {
+  .m-l;
+}
+.m-l-xs {
+  .m-l-xs
+}
+.m-l-sm	{
+  .m-l-sm
+}
+.m-l-lg	{
+  .m-l-lg
+}
+.m-l-xl {
+  .m-l-xl
+}
+.m-l-none {
+  .m-l-none
+}
+
+// 右尺寸
+.m-r {
+  margin-right:  @margin-md;
+}
+.m-r-xs {
+  margin-right:  @margin-xs;
+}
+.m-r-sm	{
+  margin-right:  @margin-sm;
+}
+.m-r-lg	{
+  margin-right:  @margin-lg;
+}
+.m-r-xl {
+  margin-right:  @margin-xl;
+}
+
+
+// 上边距尺寸
+.m-t {
+  .m-t
+}
+.m-t-xs {
+  .m-t-xs
+}
+.m-t-sm	{
+  .m-t-sm
+}
+.m-t-lg	{
+  .m-t-lg
+}
+.m-t-xl {
+  .m-t-xl
+}
+.m-t-none {
+  .m-t-none
+}

@@ -1,0 +1,25 @@
+@import "../../styles/index.less";
+
+.@{sitePrefixs} {
+  &-parameter-form {
+    .ant-form {
+      .header {
+        padding-bottom: @padding-sm;
+        color: @color-text-caption;
+      }
+      &.ant-form-vertical .ant-form-item {
+        padding-bottom: 0;
+        margin-bottom: 4px !important;
+      }
+    }
+    form :not(.ant-input-group-wrapper) > .ant-input-group, form .ant-input-group-wrapper {
+      top: 0;
+    }
+    &.borderd {
+      .ant-form {
+        padding: @padding-sm;
+        border: 1px solid @border-color-base;
+      }
+    }
+  }
+}
