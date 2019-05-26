@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import reactComponentDebounce from 'react-component-debounce';  
-import {
-  Button,
-  Form,
-  AutoComplete,
-  Input,
-  Select,
-  Tooltip,
-} from 'antd';
+import reactComponentDebounce from 'react-component-debounce';
+import { Button, Form, AutoComplete, Input, Select, Tooltip } from 'antd';
 import { isBoolean, map, isEqual, debounce } from 'lodash';
 
 const { TextArea } = Input;
@@ -18,7 +11,6 @@ const COLUMN_ORD = 'columnOrd';
 const InputField = reactComponentDebounce(500)(Input);
 
 class Field extends Component {
-  
   renderField = () => {
     const {
       form = {},
@@ -37,9 +29,8 @@ class Field extends Component {
       placeholder: placeholder || title,
       style: { width: '100%' },
       value,
-      ...reset
+      ...reset,
     };
-    
 
     let item = null;
 
@@ -48,28 +39,19 @@ class Field extends Component {
     //  根据类型渲染表单类型
     switch (type) {
       case 'select':
-        item = (
-          <Select {...props}>
-            {this.renderOptions()}
-          </Select>
-        );
+        item = <Select {...props}>{this.renderOptions()}</Select>;
         break;
-      case 'autoComplete': 
-        item = (
-          <AutoComplete
-            dataSource={this.renderOptions()}
-            {...props}
-          />
-        );
+      case 'autoComplete':
+        item = <AutoComplete dataSource={this.renderOptions()} {...props} />;
         break;
       case 'number':
-        item = <InputField {...props} type="number" min="3" />
+        item = <InputField {...props} type="number" min="3" />;
         break;
 
       case 'boolean':
         item = (
           <Select {...props}>
-            {[{ text: '是', value: true }, { text: '否', value: false}].map((ele) => (
+            {[{ text: '是', value: true }, { text: '否', value: false }].map(ele => (
               <Option value={ele.value}>{ele.text}</Option>
             ))}
           </Select>
@@ -80,27 +62,28 @@ class Field extends Component {
           <Select {...props} mode="combobox">
             {this.renderOptions()}
           </Select>
-        )
+        );
         break;
       default:
         item = <InputField {...props} />;
         break;
     }
-    if (readmore) return <Tooltip title={value}>{item}</Tooltip>
+    if (readmore) return <Tooltip title={value}>{item}</Tooltip>;
     return item;
-  }
+  };
 
   renderOptions = () => {
-    const {
-      type,
-      options,
-    } = this.props;
+    const { type, options } = this.props;
     if (type === 'autoComplete') {
       return map(options, item => ({ text: item.label, value: item.value }));
     }
-    return map(options, item => <Option key={item.key || item.value} value={item.value}>{item.label}</Option>)
-  }
-  
+    return map(options, item => (
+      <Option key={item.key || item.value} value={item.value}>
+        {item.label}
+      </Option>
+    ));
+  };
+
   render() {
     return this.renderField();
   }

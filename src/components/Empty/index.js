@@ -6,7 +6,7 @@ import { SITE_PREFIXS, ICON } from '../../constants';
 
 import './index.less';
 
-const Empty = (props) => {
+const Empty = props => {
   const {
     prefixCls,
     children,
@@ -28,7 +28,7 @@ const Empty = (props) => {
   });
   return (
     <div className={wrapCls} {...restPorps}>
-      {showIcon ? <AntEmpty description={text} />: text}
+      {showIcon ? <AntEmpty description={text} /> : text}
     </div>
   );
 };
@@ -58,4 +58,3 @@ Empty.defaultProps = {
 };
 
 export default Empty;
-

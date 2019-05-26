@@ -63,6 +63,17 @@ export default {
           name: 'carousel',
           icon: 'block',
           component: './Carousel',
+        },{
+          path: 'chart',
+          name: 'chart',
+          icon: 'block',
+          routes:[
+            {
+              path: 'pyramid',
+              name: 'pyramid',
+              component: './HightChart',
+            }
+          ]
         },
       ],
     },

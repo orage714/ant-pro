@@ -2,10 +2,9 @@ import React from 'react';
 import { Col } from 'antd';
 import './index.less';
 
-const Description = ({term,children,layout='horizontal',col=3,...resProps}) => {
-
+const Description = ({ term, children, layout = 'horizontal', col = 3, ...resProps }) => {
   return (
-    <Col className={`${layout}`} span={24/col} {...resProps}>
+    <Col className={`${layout}`} span={24 / col} {...resProps}>
       {term && <div className="term">{term}</div>}
       {!!children && <div className="detail">{children}</div>}
     </Col>

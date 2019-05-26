@@ -1,6 +1,8 @@
 export default {
   'menu.welcome': '欢迎',
   'menu.carousel': '轮播图',
+  'menu.chart': '图表',
+  'menu.chart.pyramid': '金字塔',
   'menu.more-blocks': '更多区块',
 
   'menu.account.center': '个人中心',
