@@ -1,5 +1,6 @@
 export default {
   'menu.welcome': '欢迎',
+  'menu.carousel': '轮播图',
   'menu.more-blocks': '更多区块',
 
   'menu.account.center': '个人中心',

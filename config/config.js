@@ -50,7 +50,7 @@ export default {
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
-        { path: '/', redirect: '/welcome' },
+        { path: '/', redirect: '/carousel' },
         // dashboard
         {
           path: '/welcome',
@@ -58,11 +58,12 @@ export default {
           icon: 'smile',
           component: './table',
         },
-        // {
-        //   path: 'https://github.com/umijs/umi-blocks/tree/master/ant-design-pro',
-        //   name: 'more-blocks',
-        //   icon: 'block',
-        // },
+        {
+          path: 'carousel',
+          name: 'carousel',
+          icon: 'block',
+          component: './Carousel',
+        },
       ],
     },
   ],
