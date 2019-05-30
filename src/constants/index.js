@@ -1,6 +1,7 @@
 /* eslint-disable */
 const BASE_NAME = 'index.htm';
 const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
+const DATE= 'YYYY-MM-DD';
 
 // 正则校验：只能包含3-32位由字母、数字、下划线组成的英文字符，不能以数字、下划线开头
 const SITE_PREFIXS = 'hacker';
@@ -75,6 +76,7 @@ const ICON = {
 export {
   BASE_NAME,
   DATE_FORMAT,
+  DATE,
   RESPONSIVE,
   REGEX,
   LANG,

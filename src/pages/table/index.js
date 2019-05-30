@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { ParameterForm } from '@/components';
 import { Collapse, Icon, Table, Modal, Card, Row, Col, Badge } from 'antd';
-import { Description } from './component';
+import { Description,TableForm } from './component';
 
 import Debounce from 'lodash-decorators/debounce';
 import * as dataList from './json';
@@ -154,16 +154,17 @@ export default class Demo extends PureComponent {
 
   render() {
     return (
-      <Fragment>
-        <Collapse
-          onChange={this.callback}
-          expandIconPosition="right"
-          destroyInactivePanel={true}
-          bordered={false}
-        >
-          {this.renderContent(dataList.default.regularDetail)}
-        </Collapse>
-      </Fragment>
+      <TableForm/>
+      // <Fragment>
+      //   <Collapse
+      //     onChange={this.callback}
+      //     expandIconPosition="right"
+      //     destroyInactivePanel={true}
+      //     bordered={false}
+      //   >
+      //     {this.renderContent(dataList.default.regularDetail)}
+      //   </Collapse>
+      // </Fragment>
     );
   }
 }

@@ -1,0 +1,55 @@
+@import '../../styles/base/variables';
+@import '../../styles/base/mixins';
+
+.form {
+  :global {
+    .ant-btn .anticon {
+      font-size: 12px;
+    }
+    .ant-table-thead > tr {
+      // background: transparent;
+      > th {
+        font-size: 12px;
+        color: @gray;
+        border-bottom: 1px solid @border-color-base !important;
+      }
+    }
+    .ant-table-tbody > tr > td {
+      border-bottom-color: @border-color-base;
+    }
+    .ant-table-footer {
+      padding: 8px 16px 8px 8px;
+      background: transparent;
+      border-top: 1px solid @border-color-base !important;
+    }
+  }
+}
+.formItem {
+  margin-bottom: @margin-xs;
+  :global {
+    .ant-checkbox {
+      vertical-align: -webkit-baseline-middle;
+    }
+  }
+}
+
+.formLabel {
+  margin-bottom: @margin-sm;
+  font-size: @font-size-md;
+  color: @heading-color;
+}
+
+.unfinishedTip {
+  display: inline-block;
+  margin-top: @margin-sm 0 0 @margin-md;
+  font-size: 12px;
+  color: @red;
+}
+
+.table {
+  :global {
+    .ant-btn {
+      margin-left: 4px;
+    }
+  }
+}
