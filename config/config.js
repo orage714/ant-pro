@@ -62,7 +62,19 @@ export default {
           path: 'carousel',
           name: 'carousel',
           icon: 'block',
-          component: './Carousel',
+          routes:[
+            {
+              path: 'carousel',
+              name: 'carousel',
+              component: './Carousel',
+            },
+            {
+              path: 'carousel/scroll',
+              name: 'scroll',
+              component: './Carousel/Scroll',
+            }
+          ]
+         
         },{
           path: 'chart',
           name: 'chart',

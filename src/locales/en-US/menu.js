@@ -1,6 +1,9 @@
 export default {
   'menu.welcome': 'Welcome',
   'menu.carousel': '轮播图',
+  'menu.carousel.carousel': '轮播图',
+  'menu.carousel.scroll': '滚动条',
+  'menu.chart.pyramid': '金字塔',
   'menu.more-blocks': 'More Blocks',
 
   'menu.account.center': 'Account Center',

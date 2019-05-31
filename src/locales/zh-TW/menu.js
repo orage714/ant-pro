@@ -1,10 +1,13 @@
 export default {
-  'menu.welcome': '歡迎',
+  'menu.welcome': 'Welcome',
   'menu.carousel': '轮播图',
-  'menu.more-blocks': '更多區塊',
+  'menu.carousel.carousel': '轮播图',
+  'menu.carousel.scroll': '滚动条',
+  'menu.chart.pyramid': '金字塔',
+  'menu.more-blocks': 'More Blocks',
 
-  'menu.account.center': '個人中心',
-  'menu.account.settings': '個人設置',
-  'menu.account.trigger': '觸發報錯',
-  'menu.account.logout': '退出登錄',
+  'menu.account.center': 'Account Center',
+  'menu.account.settings': 'Account Settings',
+  'menu.account.trigger': 'Trigger Error',
+  'menu.account.logout': 'Logout',
 };

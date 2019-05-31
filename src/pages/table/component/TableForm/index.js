@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import uuid from 'uuid'
 import { ParameterForm } from '@/components';
 import { Upload,Collapse, Icon,Button, Form,Table, Modal, Card, Row, Col, Badge,Input } from 'antd';
 import {Description} from '../Description'
@@ -60,31 +61,19 @@ onRemove(record){
 oncreate=()=>{
   const {dataSource}=this.state;
   const newData = dataSource.map(item => ({ ...item }));
-  const newItem = { id: `NEW_TEMP_${dataSource.length}` };
+  const code=uuid();
+  const newItem = {[code]:23 ,id:code};
+ 
   Object.keys(dataSource[0]).map(key => {
     newItem[key] = undefined;
     return key;
   });
   newData.push(newItem)
+  console.log(newData,'---newData')
   this.setState({dataSource:newData})
 }
 
-onFileRemove = ({ file, batch }) => {
-  const {}=this.state;
-  debugger
-  // const { fileList } = this.state;
-  // const current = batch ? file : file.response && file.response.data;
-  // const { bucketName, objectName } = current;
-  // this.setState({
-  //   originFileList: batch ? [] : filter(fileList, item => item.bucketName !== bucketName),
-  // });
-  // this.props.removeFile({
-  //   data: { objectName, bucketName },
-  //   success: (resp) => {
-  //     batch ? null : notify(resp.success, { message: resp.message });
-  //   }
-  // });
-}
+
 
 onFileChange = (info) => {
   const status = info.file.status;
@@ -102,52 +91,14 @@ onFileChange = (info) => {
 render() {
     const {dataSource, previewVisible, previewImage, fileList}=this.state;
     const {form:{getFieldDecorator}}=this.props;
-
-    const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
+console.log(dataSource,'dataSource')
+    
     
  const columns=[
    {
      title:'图片',
      dataIndex:'img',
-     render:(text,record,index)=>{
-      const fileList=[
-        {
-          uid: '-1',
-          name: 'xxx.png',
-          status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-      ]
-      
-      const props = {
-        name: 'file',
-        listType: 'picture-card',
-        fileList:fileList,
-        data: file => ({ file: file.name }),
-        action:"https://www.mocky.io/v2/5cc8019d300000980a055e76",
-        onChange:this.onFileChange,
-        onPreview:this.handlePreview,
-        // accept: '.jpg,.png,.gif',
-        // multiple: true,
-        onRemove: (file) => this.onFileRemove({ file }),
-      }
-      return (
-        <Fragment>
-        <Upload {...props} >
-          {fileList.length >= 3 ? null : uploadButton}
-        </Upload>
-        
-     {getFieldDecorator(`${index}.img`, {
-            initialValue:fileList
-        })(<Input style={{display:'none'}} />)}
-     </Fragment>
-       )
-     }
+     render:(text,record,index)=><img src={text} style={{width:'60px'}}/>
    },
    {
     title:'描述',
