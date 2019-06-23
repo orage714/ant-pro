@@ -1,8 +1,8 @@
 /*eslint-disable */
-import React, { Fragment } from 'react';
+import React, { Fragment,PureComponent } from 'react';
 import { ParameterForm } from '@/components';
 import { Form,Collapse, Table, Modal, Card, Row, Col, Badge } from 'antd';
-import { Description,TableForm,Tabs } from './component';
+import { Description,TableForm,Tabs,TreeForm } from './component';
 
 import Debounce from 'lodash-decorators/debounce';
 import * as dataList from './json';
@@ -157,8 +157,7 @@ const BOOLEAN = {
     const { form }=this.props;
     return (
       <Fragment>
-      <TableForm form={form} formKey='queryValue_FILTER'/>
-    
+        <TreeForm form={form} formKey='queryValue_FILTER'/>
       </Fragment> 
     );
   }
