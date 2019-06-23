@@ -1,3 +1,4 @@
+/*eslint-disable */
 export default {
   regularDetail: [
     // 商户基本信息
@@ -755,7 +756,7 @@ export default {
               value: {
                 content: [
                   {
-                    id: 456789,
+                    aid: 456789,
                     taskDrawTime: 123453431432,
                     taskCompleteTime: 321413423432,
                     businessHours: 32441324123,
@@ -768,7 +769,7 @@ export default {
                     },
                   },
                   {
-                    id: 567890,
+                    aid: 567890,
                     taskDrawTime: 23445246545,
                     taskCompleteTime: 543254534234,
                     businessHours: 4523531314324,

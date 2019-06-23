@@ -1,55 +1,26 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Scroll from 'react-scroll';
+import { Anchor } from 'antd'
 
-var Link = Scroll.Link;
-var DirectLink = Scroll.DirectLink;
-var Element = Scroll.Element;
-var Events = Scroll.Events;
-var scroll = Scroll.animateScroll;
-var scrollSpy = Scroll.scrollSpy;
-const styles = {
-  fontFamily: 'sans-serif',
-  textAlign: 'center',
-};
+const { Link } = Anchor;
 
 class Section extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.scrollToTop = this.scrollToTop.bind(this);
-  }
-
-  componentDidMount() {
-
-    Events.scrollEvent.register('begin', function () {
-      console.log("begin", arguments);
-    });
-
-    Events.scrollEvent.register('end', function () {
-      console.log("end", arguments);
-    });
-
-    scrollSpy.update();
-
-  }
-  scrollToTop() {
-    scroll.scrollToTop();
-  }
-  componentWillUnmount() {
-    Events.scrollEvent.remove('begin');
-    Events.scrollEvent.remove('end');
-  }
-  render() {
+render(){
     return (
       <div>
-        <a onClick={() => scroll.scrollTo(500)}>Scroll To 100!</a>
+         <Anchor affix={false} bounds='40px' getContainer={()=>window}>
+          <Link href="#middle" title="中间" />
+          <Link href="#bottom" title="底部" />
+          <Link href="#top" title="底部" />
+          </Anchor>
+        <a id="top"></a> 
+          <div style={{height:'400vh',backgroundColor:'#f00', padding:'300px'}}>
+            <a id="middle">middle</a> 
+          </div>
+          <a id="bottom"></a> 
 
-          <div style={{height:'400vh',backgroundColor:'#f00'}}></div>
-
-
-        <a onClick={this.scrollToTop}>To the top!</a>
-
+        
       </div>
     );
   }

@@ -1,7 +1,8 @@
-import React, { PureComponent, Fragment } from 'react';
+/*eslint-disable */
+import React, { Fragment } from 'react';
 import { ParameterForm } from '@/components';
-import { Collapse, Icon, Table, Modal, Card, Row, Col, Badge } from 'antd';
-import { Description,TableForm } from './component';
+import { Form,Collapse, Table, Modal, Card, Row, Col, Badge } from 'antd';
+import { Description,TableForm,Tabs } from './component';
 
 import Debounce from 'lodash-decorators/debounce';
 import * as dataList from './json';
@@ -12,7 +13,7 @@ const BOOLEAN = {
   false: '否',
 };
 
-export default class Demo extends PureComponent {
+ class Demo extends PureComponent {
   renderContent = data => {
     return data.map(item => (
       <Panel header={item.value.keyDesc} key={item.value.keyDesc}>
@@ -153,18 +154,13 @@ export default class Demo extends PureComponent {
   };
 
   render() {
+    const { form }=this.props;
     return (
-      <TableForm/>
-      // <Fragment>
-      //   <Collapse
-      //     onChange={this.callback}
-      //     expandIconPosition="right"
-      //     destroyInactivePanel={true}
-      //     bordered={false}
-      //   >
-      //     {this.renderContent(dataList.default.regularDetail)}
-      //   </Collapse>
-      // </Fragment>
+      <Fragment>
+      <TableForm form={form} formKey='queryValue_FILTER'/>
+    
+      </Fragment> 
     );
   }
 }
+export default Form.create()(Demo);
