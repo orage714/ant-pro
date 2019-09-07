@@ -324,13 +324,136 @@ class Demo extends PureComponent {
 
   }
 
+// 树状表单
+renderTreeForm = () => {
+    const { dataSource } = this.state;
+    const {
+      formKey,
+      form: { getFieldDecorator } } = this.props;
+    const dataSourceArr = [...dataSource.values()];
+
+    return (
+      <Fragment>
+        {
+          dataSourceArr.map(({ key, condName, condLists }, index) => (
+            <Card
+              size='small'
+              key={key}
+              className={styles.cardForm}
+              extra={dataSourceArr.length > 1 &&
+                <Icon type="close" onClick={() => this.onRemoveCond(key)} />}>
+              <Row>
+                <Col sm={7}>
+                  <Form.Item label="条件名" {...formItemLayout}>
+                    {
+                      getFieldDecorator(`${formKey}.${key}.conditionName`, {
+                        initialValue: condName,
+                        rules: [{
+                          required: true,
+                          whitespace: true,
+                          message: '请输入条件名'
+                        }, {
+                          validator: async (rule, value, callback) => {
+
+                            if (!value) {
+                              callback();
+                              return false;
+                            }
+
+                            const isUnique = await this.isUnique(key, value);
+                            callback(isUnique ? undefined : `条件名${value}重复`);
+                            return isUnique;
+
+                          }
+                        }]
+                      })(
+                        <Input />
+                      )
+                    }
+                  </Form.Item>
+                </Col>
+              </Row>
+              {
+                condLists.map(({ uid, variableId, returnType, compartorName, compareValue }, i) => (
+                  <Row key={`${key}-${uid}`}>
+                    <Col sm={7}>
+                      <Form.Item label='特征名称' {...formItemLayout}>
+                        {getFieldDecorator(`${formKey}.${key}.${uid}.returnType`, {
+                          initialValue: returnType,
+                          rules: [{
+                            required: true,
+                            message: '请选择特征名称'
+                          }]
+                        })(
+                          <Select onChange={(value, ev) => this.onReturnTypeChange(key, i, value, ev)}>
+                            {VARI_CONFIG.map(({ returnType, desc, uniqueId }) => <Option value={returnType} key={uniqueId}>{desc}</Option>)}
+                          </Select>
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Form.Item style={{ display: 'none' }}>
+                      {getFieldDecorator(`${formKey}.${key}.${uid}.variableId`, {
+                        initialValue: variableId,
+                      })(
+                        <Input />
+                      )}
+                    </Form.Item>
+                    <Col sm={7}>
+                      <Form.Item label='比较符' {...formItemLayout}>
+                        {getFieldDecorator(`${formKey}.${key}.${uid}.compartorName`, {
+                          initialValue: compartorName,
+                          rules: [{
+                            required: true,
+
+                            message: '请选择比较符'
+                          }]
+                        })(
+                          <Select >
+                            {returnType && COMPART_CON[returnType].map(({ operatorName, operatorDesc }) => <Option value={operatorName} key={operatorName}>{operatorDesc}</Option>)}
+                          </Select>
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Col sm={7}>
+                      <Form.Item label='比较值' {...formItemLayout}>
+                        {getFieldDecorator(`${formKey}.${key}.${uid}.compareValue`, {
+                          initialValue: compareValue,
+                          rules: [{
+                            required: true,
+                            whitespace: true,
+                            message: '请输入比较值'
+                          }]
+                        })(
+                          <Input />
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Col sm={2} className="btns">
+                      <Icon
+                        type="plus-circle-o"
+                        onClick={() => this.onAddVariable(key)}
+                      />
+                      {condLists.length > 1 && <Icon type="minus-circle-o" onClick={() => this.onRemoveVariable(key, i)} />}
+                    </Col>
+                  </Row>
+                ))
+              }
+            </Card>
+          ))
+        }
+      </Fragment>
+    )
+
+  }
+  
+
   render() {
     return (
       <Fragment>
         <Button type='praimary' onClick={this.onAddCond}>新增</Button>
         <Button type='praimary' onClick={this.onSubmit}>保存</Button>
-        {this.renderFormItem()}
-
+        {/* {this.renderFormItem()} */}
+        {this.renderTreeForm()}
       </Fragment>
     );
   }
