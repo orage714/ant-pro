@@ -42,7 +42,6 @@ class Field extends PureComponent {
       value,
       ...reset,
     };
-   
     let item = null;
     //  根据类型渲染表单类型
     switch (type) {
@@ -69,7 +68,7 @@ class Field extends PureComponent {
         break;
       default:
         console.log('目前支持的类型', Object.keys(FIELD_ENUMS).map(i => FIELD_ENUMS[i]));
-        item = <InputField {...props}/>;
+        item = <InputField {...props} />;
         break;
     }
 

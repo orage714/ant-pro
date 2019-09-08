@@ -1,9 +1,9 @@
 /*eslint-disabled*/
-import React, { Component,Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { debounce, isEqual } from 'lodash';
+import { debounce } from 'lodash';
 import classNames from 'classnames';
-import { Button, Table, Popover, Form, Icon } from 'antd';
+import { Button, Table, Popover, Form, Icon, Input } from 'antd';
 import Field from './Field';
 
 import styles from './index.less';
@@ -17,7 +17,7 @@ const FORM_TYPE = {
   number: 'number',
   select: 'string',
 };
-let uniqueId=0;
+let uniqueId = 0;
 class SchemaArrayForm extends Component {
   constructor(props) {
     super(props);
@@ -25,36 +25,34 @@ class SchemaArrayForm extends Component {
       unfinished: false,
       dataSource: props.dataSource,
       value: props.dataSource,
-      switchValid:true
+      switchValid: true
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.onRef(this)
   }
 
-  onCloseVal=()=>{
-    this.setState({switchValid:false})
+  onCloseVal = () => {
+    this.setState({ switchValid: false })
   }
 
-  onChange =debounce(async field => {
+  onChange = debounce(async field => {
     const {
-      form: { validateFields,setFieldsValue },
+      form: { validateFields, setFieldsValue },
     } = this.props;
-    const {dataSource,switchValid}=this.state;
-    const {formKey,index,key,cascade}=field;
-    const pre=formKey.split('.')[0];
-    if(!switchValid){ this.setState({switchValid:true})}
-     validateFields([formKey], (errors, values) => {
-      const tarValue=values[pre][key];
-      dataSource[index][key]=tarValue;
-      if(cascade){// 级联关系设置
-        const {target,cascadeObj}=cascade;
-        dataSource[index][target]=cascadeObj[tarValue];
-        setFieldsValue({[`${pre[target]}`]:cascadeObj[tarValue]})
-        // debugger
+    const { dataSource, switchValid } = this.state;
+    const { formKey, index, key, cascade } = field;
+    const pre = formKey.split('.')[0];
+    if (!switchValid) { this.setState({ switchValid: true }) }
+   await validateFields([formKey], (errors, values) => {
+      const tarValue = values[pre][key];
+      dataSource[index][key] = tarValue;
+      if (cascade) {// 级联关系设置
+        const { target, cascadeObj } = cascade;
+        dataSource[index][target] = cascadeObj[tarValue];
       }
-      this.setState({dataSource})
+      this.setState({ dataSource })
     });
 
   }, 300);
@@ -75,13 +73,13 @@ class SchemaArrayForm extends Component {
     });
     newData.push(newItem);
     this.setState({ dataSource: newData });
-     
+
   };
 
   onRemove = (record, index) => {
     const { dataSource } = this.state;
     const nextDataSource = dataSource.filter(item => item !== record);
-    
+
     this.setState({ dataSource: nextDataSource });
   };
 
@@ -89,19 +87,19 @@ class SchemaArrayForm extends Component {
     const { dataSource } = this.state;
     const {
       schema: { unique },
-      form:{validateFields}
+      form: { validateFields }
     } = this.props;
     const { field } = rule;
     const [index, key] = field.split('.');
     const needUnique = unique.indexOf(key) > -1;
-   // 如果值不存在不校验
+    // 如果值不存在不校验
     if (!value) {
       callback();
       return false;
     }
     // 唯一性校验
     if (needUnique) {
-      const checkUnique = this.checkUnique({ key, value, index,field });
+      const checkUnique = this.checkUnique({ key, value, index: index.split('-')[1], field });
       callback(checkUnique ? `${key} 重复` : undefined);
       return checkUnique;
     }
@@ -110,12 +108,12 @@ class SchemaArrayForm extends Component {
     return true;
   };
 
-  checkUnique = ({ key, value, index,field }) => {
-    const { form:{validateFields} } = this.props;
-    const {dataSource}=this.state;
+  checkUnique = ({ key, value, index, field }) => {
+    const { form: { validateFields } } = this.props;
+    const { dataSource } = this.state;
     let isUnique = false;
     dataSource
-      .filter(({id}) => `${id}`!== index)
+      .filter(({ id }) => `${id}` !== index)
       .some(item => {
         if (item[key] === value) {
           isUnique = true;
@@ -128,39 +126,39 @@ class SchemaArrayForm extends Component {
 
   renderItem = ({ text, record, field, index }) => {
     const {
-      schema: { required = [], disabled },
+      schema: { required = [], disabled, nameSpace },
       form: { getFieldDecorator },
     } = this.props;
-    const {switchValid}=this.state;
+    const { switchValid } = this.state;
     const { key, title, options, type, isBoolean, defaultValue, message } = field;
-    const valid={validator:this.validator};
+    const valid = { validator: this.validator };
     const rules = [
       {
         type: FORM_TYPE[type],
         required: required.indexOf(key) > -1,
-        whitespace:true,
+        whitespace: true,
         message: message || `${title} 不能为空`,
       }
     ];
-    switchValid&&rules.push(valid);//检验重复开关
+    switchValid && rules.push(valid);//检验重复开关
     const filedProps = {
       type,
       options,
       disabled: disabled && disabled.indexOf(key) > -1,
     };
     const initialValue = record[key] || (defaultValue !== undefined && defaultValue !== '' && defaultValue);
-      const formKey = `${record.id}.${key}`;
-      return (
-        <FormItem className={styles.formItem}>
-          {getFieldDecorator(formKey, {
-            rules,
-            initialValue,
-            validateTrigger: 'onBlur',
-            valuePropName: type==='checkbox'?'checked':'value',
-            onChange: val => this.onChange({ ...field, value: val, key,index, formKey }),
-          })(<Field {...filedProps} />)}
-        </FormItem>
-      );
+    const formKey = `${nameSpace}-${record.id}.${key}`;
+    return (
+      <FormItem className={styles.formItem}>
+        {getFieldDecorator(formKey, {
+          rules,
+          initialValue,
+          validateTrigger: 'onBlur',
+          valuePropName: type === 'checkbox' ? 'checked' : 'value',
+          onChange: val => this.onChange({ ...field, value: val, key, index, formKey }),
+        })(<Field {...filedProps} />)}
+      </FormItem>
+    );
   };
 
   getOperation = () => {
@@ -173,14 +171,14 @@ class SchemaArrayForm extends Component {
       title: '操作',
       width: 120,
       className: styles.operation,
-      render: (_, record, index) =>(
-              <Button
-                size="small"
-                icon="delete"
-                title="删除"
-                onClick={() => this.onRemove(record, index)}
-              />
-        ),
+      render: (_, record, index) => (
+        <Button
+          size="small"
+          icon="delete"
+          title="删除"
+          onClick={() => this.onRemove(record, index)}
+        />
+      ),
     };
 
     const customOperation = properties.operation || {};
@@ -202,10 +200,12 @@ class SchemaArrayForm extends Component {
 
   renderTable = () => {
     const {
-      schema: { properties },
+      schema: { properties, hiddenArr, nameSpace },
+      form: { getFieldDecorator },
       rowKey,
     } = this.props;
     const { dataSource } = this.state;
+    const hideForm = [];
     const columns = Object.keys(properties).map(key => {
       const field = properties[key] || {};
       return {
@@ -213,7 +213,7 @@ class SchemaArrayForm extends Component {
         width: field.width,
         title: field.title,
         type: field.type,
-        render: (text, record, index) =>  {
+        render: (text, record, index) => {
           if (field.render && field.render(text, record, index)) {
             return field.render(text, record, index);
           }
@@ -222,27 +222,43 @@ class SchemaArrayForm extends Component {
       };
     });
     columns.push(this.getOperation());
+    {
+      dataSource.map(record => {
+        hiddenArr.map(key => {
+          hideForm.push(<Fragment>
+            {
+              getFieldDecorator(`${nameSpace}-${record.id}.${key}`, {
+                initialValue: record[key]
+              })(<Input type='hidden' />)
+            }
+          </Fragment>)
+        })
+      })
+    }
 
     return (
-      <Table
-        className={styles.table}
-        dataSource={dataSource}
-        columns={columns}
-        size="small"
-        rowKey={record => record[rowKey || 'id']}
-        footer={()=> <Button
-         type="dashed" 
-         block icon="plus" 
-         onClick={this.onCreate}>
-                    新增
-          </Button>}
-      />
+      <Fragment>
+        {hideForm}
+        <Table
+          className={styles.table}
+          dataSource={dataSource}
+          columns={columns}
+          size="small"
+          rowKey={record => record[rowKey || 'id']}
+          footer={() => <Button
+            type="dashed"
+            block icon="plus"
+            onClick={this.onCreate}>
+            新增
+            </Button>}
+        />
+      </Fragment>
     );
   };
 
   render() {
     const { className } = this.props;
-    const {switchValid}=this.state;
+    const { dataSource } = this.state;
     const wrapCls = classNames({
       [styles.form]: true,
       [className]: !!className,

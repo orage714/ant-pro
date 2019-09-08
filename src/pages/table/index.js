@@ -3,7 +3,7 @@ import React, { Fragment,PureComponent } from 'react';
 import { ParameterForm } from '@/components';
 import { Form,Collapse, Table, Modal, Card, Row, Col, Badge,Button } from 'antd';
 import { Description,TableForm,Tabs,TreeForm,SchemaArrayForm } from './component';
-import Debounce from 'lodash-decorators/debounce';
+import {map,pickBy} from 'lodash'
 import * as dataList from './json';
 
 const option={a:'名1',b:'名2',C:'名3'};
@@ -15,7 +15,8 @@ const option={a:'名1',b:'名2',C:'名3'};
     } = this.props;
      await this.child.onCloseVal();
      await  validateFields((errors, values) => {
-        // console.log('values:b',values)
+        console.log('values:b',values)
+        const result=[];
         if (!errors) {
           // const { dataSource } = this.state;
         }
@@ -28,16 +29,19 @@ const option={a:'名1',b:'名2',C:'名3'};
     const { form }=this.props;
     const data=[{
       id:1,
+      uuid:566,
       name:'a',
       type:'类型1',
       srcType:true,
     },{
       id:2,
       name:'b',
+      uuid:5660,
       type:'类型2',
       srcType:false,
     }]
     const schema={
+      nameSpace:'node',
       properties:{
         name:{
           title:'名字',
@@ -59,11 +63,13 @@ const option={a:'名1',b:'名2',C:'名3'};
       },
       required:['name','type','srcType'],
       disabled:['type'],
-      unique:['name','type']
+      unique:['name','type'],
+      hiddenArr:['id','uuid']
     }
     const tabProps={
       form,
       schema,
+     
       dataSource:data,
     }
     return (
