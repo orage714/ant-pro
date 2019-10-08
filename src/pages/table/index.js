@@ -76,6 +76,8 @@ const option={a:'名1',b:'名2',C:'名3'};
       <Fragment>
         <Button onClick={this.onSave}>保存</Button>
         <SchemaArrayForm  {...tabProps} onRef={this.onRef}/>
+        <Description/>
+        <TableForm {...this.props}/>
       </Fragment> 
     );
   }

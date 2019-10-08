@@ -37,23 +37,21 @@ class SchemaArrayForm extends Component {
     this.setState({ switchValid: false })
   }
 
-  onChange = debounce(async field => {
+  onChange = debounce( field => {
     const {
-      form: { validateFields, setFieldsValue },
+      form: { getFieldValue, setFieldsValue },
     } = this.props;
     const { dataSource, switchValid } = this.state;
     const { formKey, index, key, cascade } = field;
     const pre = formKey.split('.')[0];
     if (!switchValid) { this.setState({ switchValid: true }) }
-   await validateFields([formKey], (errors, values) => {
-      const tarValue = values[pre][key];
+    const tarValue=getFieldValue(formKey);
       dataSource[index][key] = tarValue;
       if (cascade) {// 级联关系设置
         const { target, cascadeObj } = cascade;
         dataSource[index][target] = cascadeObj[tarValue];
       }
       this.setState({ dataSource })
-    });
 
   }, 300);
 

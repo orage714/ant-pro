@@ -50,7 +50,12 @@ export default {
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
-        { path: '/', redirect: '/carousel' },
+        { path: '/', redirect: '/welcome' },
+        {
+          path:'/hoc',
+          name:'hoc',
+          component:'./Hoc',
+        },
         // dashboard
         {
           path: '/welcome',
