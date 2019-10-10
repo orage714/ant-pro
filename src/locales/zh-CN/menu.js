@@ -5,6 +5,7 @@ export default {
   'menu.carousel.scroll': '滚动条',
   'menu.chart.pyramid': '金字塔',
   'menu.hoc': '高阶组件',
+  'menu.hooks': 'Hooks',
   'menu.more-blocks': 'More Blocks',
 
   'menu.account.center': 'Account Center',
