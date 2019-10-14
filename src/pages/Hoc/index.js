@@ -12,7 +12,7 @@ import { A,B,C,RenderProp } from './components'
                 <Divider/>
                 <C/>
                 <Divider>render prop</Divider>
-                <RenderProp/>
+                <RenderProp name={22}/>
             </Fragment>
         )
     }
