@@ -1,9 +1,10 @@
 /*eslint-disable */
 import React, { Fragment,PureComponent } from 'react';
 import { ParameterForm } from '@/components';
-import { Form,Collapse, Table, Modal, Card, Row, Col, Badge,Button } from 'antd';
+import { Form,Collapse, Table, Modal, Card, Row, Col, Badge,Button,Divider } from 'antd';
 import { Description,TableForm,Tabs,TreeForm,SchemaArrayForm } from './component';
 import {map,pickBy} from 'lodash'
+import {getURLStuff} from '../../utils/utils';
 import * as dataList from './json';
 
 const option={a:'名1',b:'名2',C:'名3'};
@@ -72,12 +73,20 @@ const option={a:'名1',b:'名2',C:'名3'};
      
       dataSource:data,
     }
+
+    let anchor = getURLStuff("anchor");
+    console.log("菊", anchor);
     return (
       <Fragment>
-        <Button onClick={this.onSave}>保存</Button>
+        <a href='#array'>q</a><br/>
+        <a href='#rule'>s</a><br/>
+        <a href='#tree'>d</a>
+        <Button onClick={this.onSave} >保存</Button>
+        <Divider orientation="left" id='array'>数组表单</Divider>
         <SchemaArrayForm  {...tabProps} onRef={this.onRef}/>
-        <Description/>
+        <Divider orientation="left" id='rule'>规则表单</Divider>
         <TableForm {...this.props}/>
+        <a id='tree'/>
       </Fragment> 
     );
   }

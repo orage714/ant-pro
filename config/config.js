@@ -57,16 +57,27 @@ export default {
           component:'./Hoc',
         },
         {
-          path:'/hooks',
-          name:'hooks',
-          component:'./Hooks',
-        },
-        // dashboard
-        {
-          path: '/welcome',
-          name: 'welcome',
+          path:'form',
+          name: 'form',
           icon: 'smile',
-          component: './table',
+          routes:[
+            {
+              path: 'form',
+              // path: 'form#array',
+              name: 'arr',
+              component: './Form',
+            },
+            {
+              path: 'form#rule',
+              name: 'rule',
+              component: './Form',
+            },
+            {
+              path: 'form#tree',
+              name: 'tree',
+              component: './Form',
+            },
+          ]
         },
         {
           path: 'carousel',
@@ -78,13 +89,7 @@ export default {
               name: 'carousel',
               component: './Carousel',
             },
-            {
-              path: 'carousel/scroll',
-              name: 'scroll',
-              component: './Carousel/Scroll',
-            }
           ]
-         
         },{
           path: 'chart',
           name: 'chart',

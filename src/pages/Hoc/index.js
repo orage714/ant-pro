@@ -18,5 +18,4 @@ import { A,B,C,RenderProp } from './components'
     }
 }
 
-
 export default Hoc;
