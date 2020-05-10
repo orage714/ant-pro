@@ -83,7 +83,7 @@ export default class BaseMenu extends PureComponent {
     const icon = getIcon(item.icon);
     const { target } = item;
     // Is it a http link
-    if (/^https?:\/\//.test(itemPath)) {
+    if (/^https?:\/\//.test(itemPath)||window.location.hash) {
       return (
         <a href={itemPath} target={target}>
           {icon}

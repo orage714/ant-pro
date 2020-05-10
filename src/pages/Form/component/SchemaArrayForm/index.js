@@ -30,7 +30,7 @@ class SchemaArrayForm extends Component {
   }
 
   componentDidMount() {
-    this.props.onRef(this)
+    // this.props.onRef(this)
   }
 
   onCloseVal = () => {

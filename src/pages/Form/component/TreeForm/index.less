@@ -1,17 +1,112 @@
+@lineColor: #e8dadaf7;
+@borderColor: #38c795;
+.outerWrap {
+  padding-left: 50px;
+  position: relative;
 
-.cardForm{
-  margin-top: 10px;
-  :global{
-    .ant-select {
-      width: 100%;
+  .formItem {
+    margin: 0;
+    margin-left: 6px;
+  }
+
+  .btnWrap {
+    padding: 10px;
+  }
+
+  :global {
+    .inner-tip,
+    .field-tip {
+      position: absolute;
+      left: 0;
+      &::after {
+        position: absolute;
+        top: 40%;
+        left: 10px;
+        border: solid 1px @lineColor;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        font-size: 12px;
+        z-index: 88;
+        background-color: #fff;
+      }
+    }
+    .inner-tip {
+      top: ~"calc(50% - 10px)";
+    }
+    .inner-tip:after {
+      content: "或";
+    }
+    .field-tip {
+      top: 50%;
+    }
+    .field-tip:after {
+      content: "且";
     }
 
-    .btns{
-      font-size: 18px;
-      padding-top: 5px;
-      i{   
-         margin-left: 8px;
+    .field-tip::before {
+      content: "";
+      border-top: solid 1px @lineColor;
+      left: -10px;
+      width: 20px;
+      position: absolute;
+      left: 30px;
+      bottom: calc(50% - 10px);
+    }
+
+    .inner-box {
+      padding-left: 34px;
+    }
+
+    .inner-box,
+    .inner-item {
+      position: relative;
+      overflow: hidden;
+      &:before {
+        content: "";
+        width: 2px;
+        height: 100%;
+        background-color: @borderColor;
+        position: absolute;
+        left: 0;
       }
+      &:after {
+        content: "";
+        border-top: solid 1px @lineColor;
+        left: -10px;
+        top: 50%;
+        width: 20px;
+        height: 2px;
+        left: 0px;
+        top: calc(50% - 1px);
+        position: absolute;
+      }
+    }
+    .inner-box:after {
+      width: 40px;
+    }
+
+    .inner-item {
+      overflow: hidden;
+      margin-left: 6px;
+      padding-left: 10px;
+    }
+
+    .inner-box:first-child,
+    .inner-item:first-child {
+      &:before {
+        top: 50%;
+      }
+    }
+
+    .inner-item:last-child {
+      &:before {
+        bottom: 20px;
+      }
+    }
+    .last-innner-box:before {
+      top: -12px;
     }
   }
 }

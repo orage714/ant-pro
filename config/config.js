@@ -1,5 +1,6 @@
 // ref: https://umijs.org/config/
 import { primaryColor } from '../src/defaultSettings';
+import pageRouter from './router.config';
 
 export default {
   plugins: [
@@ -40,71 +41,7 @@ export default {
   /**
    * 路由相关配置
    */
-  routes: [
-    {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [{ path: '/user', component: './Welcome' }],
-    },
-    {
-      path: '/',
-      component: '../layouts/BasicLayout',
-      routes: [
-        { path: '/', redirect: '/hooks' },
-        {
-          path:'/hoc',
-          name:'hoc',
-          component:'./Hoc',
-        },
-        {
-          path:'form',
-          name: 'form',
-          icon: 'smile',
-          routes:[
-            {
-              path: 'form',
-              // path: 'form#array',
-              name: 'arr',
-              component: './Form',
-            },
-            {
-              path: 'form#rule',
-              name: 'rule',
-              component: './Form',
-            },
-            {
-              path: 'form#tree',
-              name: 'tree',
-              component: './Form',
-            },
-          ]
-        },
-        {
-          path: 'carousel',
-          name: 'carousel',
-          icon: 'block',
-          routes:[
-            {
-              path: 'carousel',
-              name: 'carousel',
-              component: './Carousel',
-            },
-          ]
-        },{
-          path: 'chart',
-          name: 'chart',
-          icon: 'block',
-          routes:[
-            {
-              path: 'pyramid',
-              name: 'pyramid',
-              component: './HightChart',
-            }
-          ]
-        },
-      ],
-    },
-  ],
+  routes:pageRouter,
   disableRedirectHoist: true,
 
   /**

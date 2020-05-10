@@ -6,18 +6,11 @@ export function isUrl(path) {
 }
 
 // 获取路由锚地
-export  function getURLStuff(stuff) {
-  const url = window.location.hash;
-  let query = url.split("?").length > 1 ? url.split("?")[1] : "";
-  let param = !!query ? query.split("&") : [];
-  let resultSet = {};
-  for (let i = 0; i < param.length; i++) {
-    let params = param[i].split("=");
-    if (params.length > 1) {
-      resultSet[params[0]] = params[1];
+export  function scrollToAnchor(){
+  if (window.location.hash) {
+    const href = window.location.hash.slice(1, window.location.hash.length);
+    if (document.getElementById(href)) {
+      document.getElementById(href).scrollIntoView();
     }
   }
-  let result = resultSet[stuff] || "";
-  console.log(result,'菊RESU;T')
-  return decodeURI(result);
-}
+};
