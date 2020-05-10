@@ -1,0 +1,55 @@
+@primary-color:'#0f0';
+.mapBox {
+  position: relative;
+  :global {
+    .tipMarker {
+      background: rgba(3, 3, 3, 0.15);
+      padding: 3px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+      // max-width: 140px;
+    }
+    .map-controller {
+      position: absolute;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      bottom: 10px;
+      right: 10px;
+      font-size: 24px;
+      padding: 4px;
+      border-radius: 40px;
+      .anticon-reload,
+      .anticon-home {
+        margin-bottom: 4px;
+      }
+      .anticon:hover {
+        cursor: pointer;
+        color: @primary-color;
+      }
+    }
+    .mapLegend {
+      position: absolute;
+      z-index: 200;
+      bottom: 60px;
+      padding: 5px;
+      background: #fff;
+      border-radius: 4px;
+      left: 5px;
+      .legendItem {
+        display: flex;
+        align-items: center;
+        .legendIcon {
+          margin-right: 5px;
+          width: 16px;
+          height: 16px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}

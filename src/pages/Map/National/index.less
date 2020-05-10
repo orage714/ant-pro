@@ -1,0 +1,86 @@
+.mainBox {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 48px);
+  :global {
+    .map {
+      width: 100%;
+      position: relative;
+      .filterBox {
+        z-index: 1000;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        width: 360px;
+        .search_inpt {
+          flex: 1;
+          .map-search-block {
+            position: relative;
+            .map-input-tip-clear {
+              width: 18px;
+              position: absolute;
+              top: 50%;
+              right: 0;
+              transform: translateY(-50%);
+              cursor: pointer;
+            }
+          }
+        }
+        .drop_btn {
+          color: #1890ff;
+          &:hover {
+            color: #2ed197;
+          }
+        }
+        .fb_active {
+          border-color: #2ed197;
+          color: #2ed197;
+        }
+        .filter_body {
+          width: 360px;
+          background: #fff;
+          border-radius: 5px;
+          position: absolute;
+          padding: 15px 15px 15px 0;
+          top: 35px;
+          .ant-col {
+            min-height: 40px;
+          }
+          .ant-calendar-picker {
+            width: 100% !important;
+          }
+          .footer {
+            padding-left: 15px;
+            margin-top: 10px;
+            text-align: center;
+            .ok_btn {
+              margin-left: 20px;
+            }
+            .reset_btn {
+              margin-right: 20px;
+            }
+          }
+          .ant-form-item {
+            margin-bottom: 0;
+          }
+        }
+      }
+      .indicatorController {
+        position: absolute;
+        z-index: 1000;
+        right: 30px;
+        top: 20px;
+        .selController {
+          width: 180px;
+        }
+      }
+    }
+    .indicator {
+      width: calc(40% - 24px);
+      overflow-y: auto;
+      margin-left: 24px;
+      background: #fff;
+    }
+  }
+}

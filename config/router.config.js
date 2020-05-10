@@ -8,7 +8,7 @@ export default [
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
-        { path: '/', redirect: '/hooks' },
+        { path: '/', redirect: '/hoc' },
         {
           path:'/hoc',
           name:'hoc',
@@ -58,6 +58,19 @@ export default [
               component: './HightChart',
             }
           ]
+        },
+        {
+          path:'map',
+          name:'map',
+          routes:[{
+            path:'national',
+            name:'national',
+            component:'./Map/National'
+          },{
+            path:'city',
+            name:'city',
+            component:'./Map/City'
+          }]
         },
       ],
     },

@@ -15,4 +15,9 @@ export default {
   'menu.account.settings': 'Account Settings',
   'menu.account.trigger': 'Trigger Error',
   'menu.account.logout': 'Logout',
+
+  'menu.map': '地图',
+  'menu.map.national': '全国地图',
+  'menu.map.city': '城市地图',
+
 };
